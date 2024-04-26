@@ -55,6 +55,11 @@ def tile(grid, n, x=0, y=0, gap=NW):
         center = 2 ** (n - 1) - 1
         grid = place_tile(grid, center, center, gap, COLORS[1])
 
+        grid = tile(grid, n - 1, x, y, rotate(NW, gap))
+        grid = tile(grid, n - 1, x + center + 1, y, rotate(NE, gap))
+        grid = tile(grid, n - 1, x + center + 1, y + center + 1, rotate(SE, gap))
+        grid = tile(grid, n - 1, x, y + center + 1, rotate(SW, gap))
+
     return grid
 
 
