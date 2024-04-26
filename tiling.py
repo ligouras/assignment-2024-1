@@ -46,12 +46,11 @@ parser = argparse.ArgumentParser(description="Tromino tiling generator")
 parser.add_argument("n", type=int, help="Size of grid (2^n x 2^n)")
 args = parser.parse_args()
 
-n = args.n
-size = 2**n
+size = 2**args.n
 
 grid = [[GAP for _ in range(size)] for _ in range(size)]
 
-grid = tile(grid, n)
+grid = tile(grid, args.n)
 
 for i in range(size):
     print(" ".join(grid[i]))
