@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import random
 
 NW, NE, SE, SW = 0, 1, 2, 3
 COLORS = ["R", "G", "B"]
@@ -71,7 +72,7 @@ size = 2**args.n
 
 grid = [[GAP for _ in range(size)] for _ in range(size)]
 
-grid = tile(grid, args.n)
+grid = tile(grid, args.n, gap=random.choice([NW, NE, SE, SW]))
 
 for i in range(size):
     print(" ".join(grid[i]))
