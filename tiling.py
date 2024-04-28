@@ -46,6 +46,9 @@ def tile(grid, n, x=0, y=0, gap=NW):
     if n == 1:
         grid = place_tile(grid, x, y, gap, COLORS[1])
     elif n == 2:
+        if x == 0 and y == 0:
+            gap = SE
+
         grid = place_tile(grid, x + 1, y + 1, gap, COLORS[1])
 
         grid = place_tile(grid, x, y, rotate(NW, gap), COLORS[2])
@@ -72,7 +75,7 @@ size = 2**args.n
 
 grid = [[GAP for _ in range(size)] for _ in range(size)]
 
-grid = tile(grid, args.n, gap=random.choice([NW, NE, SE, SW]))
+grid = tile(grid, args.n, gap=NW)
 
 for i in range(size):
     print(" ".join(grid[i]))
