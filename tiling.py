@@ -1,45 +1,28 @@
 #!/usr/bin/env python3
 
 import argparse
-import random
 
 NW, NE, SE, SW = 0, 1, 2, 3
 COLORS = ["R", "G", "B"]
 GAP = "X"
 
+ROTATIONS = {NW: SE, NE: SW, SE: NW, SW: NE}
+TILE_CONFIGURATIONS = {
+    NW: [(1, 0), (0, 1), (1, 1)],
+    NE: [(0, 0), (0, 1), (1, 1)],
+    SW: [(0, 0), (1, 0), (1, 1)],
+    SE: [(0, 0), (0, 1), (1, 0)],
+}
+
 
 def place_tile(grid, x, y, gap, color):
-    if gap == NW:
-        grid[x + 1][y] = color
-        grid[x][y + 1] = color
-        grid[x + 1][y + 1] = color
-    elif gap == NE:
-        grid[x][y] = color
-        grid[x][y + 1] = color
-        grid[x + 1][y + 1] = color
-    elif gap == SW:
-        grid[x][y] = color
-        grid[x + 1][y] = color
-        grid[x + 1][y + 1] = color
-    elif gap == SE:
-        grid[x][y] = color
-        grid[x][y + 1] = color
-        grid[x + 1][y] = color
-
+    for dx, dy in TILE_CONFIGURATIONS[gap]:
+        grid[x + dx][y + dy] = color
     return grid
 
 
 def rotate(pos, gap):
-    if pos == gap:
-        return gap
-    if pos == NW:
-        return SE
-    elif pos == NE:
-        return SW
-    elif pos == SE:
-        return NW
-    elif pos == SW:
-        return NE
+    return gap if pos == gap else ROTATIONS[pos]
 
 
 def tile(grid, n, x=0, y=0, gap=NW):
